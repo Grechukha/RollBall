@@ -9,7 +9,7 @@ public class CameraTracking : MonoBehaviour
     private void Start()
     {
         _camera = GetComponent<Camera>();
-        transform.position = new Vector3(0, 0, -10);       
+        transform.position = new Vector3(0, 2, -10);       
     }
 
     private void Update()
