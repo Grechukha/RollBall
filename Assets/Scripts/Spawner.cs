@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _gameObject;
-    [SerializeField] private float _minDelay;
-    [SerializeField] private float _maxDelay;
-    [SerializeField] private float _firstSpawn;
-    private float _nextSpawn;
+    [SerializeField] protected GameObject _gameObject;
+    [SerializeField] protected float _minDelay;
+    [SerializeField] protected float _maxDelay;
+    [SerializeField] protected float _firstSpawn;
+    protected float _nextSpawn;
 
     private void Start()
     {
@@ -16,6 +14,11 @@ public class Spawner : MonoBehaviour
     }
 
     private void Update()
+    {
+        Spawn();
+    }
+
+    protected virtual void Spawn()
     {
         if (Time.time > _nextSpawn)
         {
