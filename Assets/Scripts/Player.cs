@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
+    public TMP_Text CountOfCoinsText;
     [SerializeField] private float _speade;
     [SerializeField] private float _jumpForce = 0.25f;
     [SerializeField] private float _maxJumpTime = 0.25f;
@@ -59,7 +61,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("Menu");
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -83,6 +85,8 @@ public class Player : MonoBehaviour
         if (collision.gameObject.GetComponent<Coin>())
         {
             _countOfCoins++;
+            CountOfCoinsText.text = _countOfCoins.ToString();
+
             Destroy(collision.gameObject);
         }
     }
