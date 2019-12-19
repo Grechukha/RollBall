@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +9,15 @@ public class Player : MonoBehaviour
     private float _storeMaxJumpTime;
     private Rigidbody2D _rigidbody2D;
     private bool _isGrounded;
+    private int _countOfCoins;
+
+    public int CountOfCoins
+    {
+        get
+        {
+            return _countOfCoins;
+        }
+    }
 
     private void Start()
     {
@@ -16,27 +26,27 @@ public class Player : MonoBehaviour
         _storeMaxJumpTime = _maxJumpTime;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        Jump();
         Roll();
+        Jump();
     }
 
     private void Jump()
     {
-        if (_isGrounded && Input.GetKeyDown(KeyCode.Mouse0))
+        if (_isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             _maxJumpTime = _storeMaxJumpTime;
         }
 
-        if (_maxJumpTime > 0 && Input.GetKey(KeyCode.Mouse0))
+        if (_maxJumpTime > 0 && Input.GetKey(KeyCode.Space))
         {
             _maxJumpTime -= Time.deltaTime;
 
             _rigidbody2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
         }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0) && !_isGrounded)
+        if (Input.GetKeyUp(KeyCode.Space) && !_isGrounded)
         {
             _maxJumpTime = -1;
         }
@@ -44,12 +54,12 @@ public class Player : MonoBehaviour
 
     private void Roll()
     {
-        _rigidbody2D.velocity = new Vector2(_speade * Time.deltaTime, _rigidbody2D.velocity.y);
+        _rigidbody2D.velocity = new Vector2(_speade, _rigidbody2D.velocity.y);
     }
 
     public void TakeDamage()
     {
-
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -65,6 +75,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.GetComponent<GroundPlatform>())
         {
             _isGrounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<Coin>())
+        {
+            _countOfCoins++;
+            Destroy(collision.gameObject);
         }
     }
 }
