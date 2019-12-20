@@ -3,7 +3,7 @@
 public class PlatformShifter : MonoBehaviour
 {
     [SerializeField] private GroundPlatform[] _groundPlatforms;
-    [SerializeField] private Player _player;
+    [SerializeField] private PlayerMovement _player;
 
    private void Update()
     {

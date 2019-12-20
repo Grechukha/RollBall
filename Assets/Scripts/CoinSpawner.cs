@@ -24,14 +24,17 @@ public class CoinSpawner : Spawner
 
 
             Mathf.Clamp(_coinPosition.y, -transform.localScale.y + transform.position.y, transform.localScale.y + transform.position.y);
+
             Instantiate(_gameObject, _coinPosition, Quaternion.identity);
-
-            _nextSpawn = Time.time + _minDelay;
-
+            
             if (_currentCoinNumber > _countOfCoins - 1)
             {
                 _currentCoinNumber = 0;
                 _nextSpawn = Time.time + _maxDelay;
+            }
+            else
+            {
+                _nextSpawn = Time.time + _minDelay;
             }
 
             _currentCoinNumber++;

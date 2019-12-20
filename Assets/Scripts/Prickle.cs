@@ -4,11 +4,11 @@ public class Prickle : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        var playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
 
-        if (player)
+        if (playerHealth)
         {
-            player.TakeDamage();
+            playerHealth.TakeDamage();
         }
     }
 }

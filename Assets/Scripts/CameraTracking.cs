@@ -2,14 +2,15 @@
 
 public class CameraTracking : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Vector3 _startPositin = new Vector3(0, 2, -10);
+    [SerializeField] private PlayerMovement _player;
     private Camera _camera;
     private Vector3 _offset;
 
     private void Start()
     {
         _camera = GetComponent<Camera>();
-        transform.position = new Vector3(0, 2, -10);       
+        transform.position = _startPositin;
     }
 
     private void Update()
