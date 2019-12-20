@@ -1213,8 +1213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CountOfCoinsText: {fileID: 2025303384}
   _speade: 7
-  _jumpForce: 5
-  _maxJumpTime: 0.125
+  _jumpForce: 20
+  _maxJumpTime: 0.35
 --- !u!212 &1993063400
 SpriteRenderer:
   m_ObjectHideFlags: 0

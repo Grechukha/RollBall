@@ -5,7 +5,7 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     public TMP_Text CountOfCoinsText;
-    [SerializeField] private float _speade;
+    [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce = 0.25f;
     [SerializeField] private float _maxJumpTime = 0.25f;
     private float _storeMaxJumpTime;
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
         {
             _maxJumpTime -= Time.deltaTime;
 
-            _rigidbody2D.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _jumpForce); 
         }
 
         if (Input.GetKeyUp(KeyCode.Space) && !_isGrounded)
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 
     private void Roll()
     {
-        _rigidbody2D.velocity = new Vector2(_speade, _rigidbody2D.velocity.y);
+        _rigidbody2D.velocity = new Vector2(_speed, _rigidbody2D.velocity.y);
     }
 
     public void TakeDamage()

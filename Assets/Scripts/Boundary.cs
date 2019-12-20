@@ -11,6 +11,4 @@ public class Boundary : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
-
 }
