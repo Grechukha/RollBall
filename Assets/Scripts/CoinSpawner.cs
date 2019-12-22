@@ -2,42 +2,49 @@
 
 public class CoinSpawner : Spawner
 {
-    [SerializeField] private int _countOfCoins;
-    private Vector3 _coinPosition;
+    [SerializeField] private int _targetCount;
+    private Vector3 _previousCoinPosition;
     private int _currentCoinNumber = 1;
-
-    protected override void Spawn()
+    
+    protected override Vector3 GetNextPosition()
     {
-        if (Time.time > _nextSpawn)
+        return GetCoinPosition(_currentCoinNumber);
+    }
+
+    protected override float GetNextSpawnTime()
+    {
+        if (_currentCoinNumber > _targetCount - 1)
         {
-            _coinPosition.x = transform.position.x;
-
-            if (_currentCoinNumber < 2)
-            {
-                _coinPosition.z = transform.position.z;
-                _coinPosition.y = Random.Range(-transform.localScale.y / 2, transform.localScale.y / 2) + transform.position.y;
-            }
-            else
-            {
-                _coinPosition.y += Random.Range(-0.25f, 0.25f);
-            }
-
-
-            Mathf.Clamp(_coinPosition.y, -transform.localScale.y + transform.position.y, transform.localScale.y + transform.position.y);
-
-            Instantiate(_gameObject, _coinPosition, Quaternion.identity);
-            
-            if (_currentCoinNumber > _countOfCoins - 1)
-            {
-                _currentCoinNumber = 0;
-                _nextSpawn = Time.time + _maxDelay;
-            }
-            else
-            {
-                _nextSpawn = Time.time + _minDelay;
-            }
-
-            _currentCoinNumber++;
+            _currentCoinNumber = 1;
+            return Time.time + _maxDelay;
         }
+        else
+        {
+            _currentCoinNumber++;
+            return Time.time + _minDelay;
+        }
+    }
+
+    private Vector3 GetCoinPosition(int number)
+    {
+        Vector3 newCoinPosition = _previousCoinPosition;
+
+        newCoinPosition.x = transform.position.x;
+
+        if (number < 2)
+        {
+            newCoinPosition.z = transform.position.z;
+            newCoinPosition.y = Random.Range(-transform.localScale.y / 2, transform.localScale.y / 2) + transform.position.y;
+        }
+        else
+        {
+            newCoinPosition.y += Random.Range(-0.25f, 0.25f);
+        }
+
+        Mathf.Clamp(newCoinPosition.y, -transform.localScale.y + transform.position.y, transform.localScale.y + transform.position.y);
+
+        _previousCoinPosition = newCoinPosition;
+
+        return newCoinPosition;
     }
 }

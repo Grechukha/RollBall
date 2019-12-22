@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundChecker))]
+
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _jumpForce = 25f;
     [SerializeField] private float _maxJumpTime = 0.35f;
-    private float _storeMaxJumpTime;
+    private float _originalMaxJumpTime;
     private GroundChecker _groundChecker;
     private Rigidbody2D _rigidbody2D;
 
@@ -15,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _groundChecker = GetComponent<GroundChecker>();
 
-        _storeMaxJumpTime = _maxJumpTime;
+        _originalMaxJumpTime = _maxJumpTime;
     }
 
     private void FixedUpdate()
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && _groundChecker.IsGrounded)
         {
-            _maxJumpTime = _storeMaxJumpTime;
+            _maxJumpTime = _originalMaxJumpTime;
         }
 
         if (Input.GetKey(KeyCode.Space) && _maxJumpTime > 0)

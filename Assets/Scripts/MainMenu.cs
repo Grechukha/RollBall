@@ -5,20 +5,20 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Animator _animatorAuthorsPanel;
 
-    public void Play(string level)
+    public void PlayButtonClickHandler(string level)
     {
         SceneManager.LoadScene(level);
     }
-    public void AuthorsPanelSet()
+    public void AuthorsPanelSetButtonClickHandler()
     {
         _animatorAuthorsPanel.SetBool("isAuthorsPanelDisplayed", true);
     }
 
-    public void AuthorsPanelReset()
+    public void AuthorsPanelResetButtonClickHandler()
     {
         _animatorAuthorsPanel.SetBool("isAuthorsPanelDisplayed", false);
     }
-    public void Exid()
+    public void ExitButtonClickHandler()
     {
         Application.Quit();
     }

@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
+
 public class CameraTracking : MonoBehaviour
 {
     [SerializeField] private Vector3 _startPositin = new Vector3(0, 2, -10);
     [SerializeField] private PlayerMovement _player;
+    [SerializeField] private float _offsetRelativeCenterCameraX = -0.66f;
     private Camera _camera;
     private Vector3 _offset;
+    
 
     private void Start()
     {
@@ -21,6 +25,6 @@ public class CameraTracking : MonoBehaviour
 
     private void СalculateOffset()
     {
-        _offset = new Vector3(_camera.orthographicSize * _camera.aspect * 0.66f, 0, 0);
+        _offset = new Vector3(_camera.orthographicSize * _camera.aspect * -_offsetRelativeCenterCameraX, 0, 0);
     }
 }

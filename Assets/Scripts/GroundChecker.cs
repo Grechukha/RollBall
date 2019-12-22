@@ -1,22 +1,14 @@
 ﻿using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
-{
-    private bool _isGrounded;
-
-    public bool IsGrounded
-    {
-        get
-        {
-            return _isGrounded;
-        }
-    }
+{   
+    public bool IsGrounded { get; private set; }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<GroundPlatform>())
         {
-            _isGrounded = true;
+            IsGrounded = true;
         }
     }
 
@@ -24,7 +16,7 @@ public class GroundChecker : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<GroundPlatform>())
         {
-            _isGrounded = false;
+            IsGrounded = false;
         }
     }
 }

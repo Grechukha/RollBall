@@ -291,6 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startPositin: {x: 0, y: 2, z: -10}
   _player: {fileID: 1993063399}
+  _offsetRelativeCenterCameraX: -0.66
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -573,7 +574,7 @@ MonoBehaviour:
   _minDelay: 0.25
   _maxDelay: 2
   _firstSpawn: 4
-  _countOfCoins: 5
+  _targetCount: 5
 --- !u!23 &743706141
 MeshRenderer:
   m_ObjectHideFlags: 0
