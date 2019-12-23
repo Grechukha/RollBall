@@ -1,22 +1,15 @@
 ﻿using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
-{   
-    public bool IsGrounded { get; private set; }
+{
+    [SerializeField] private LayerMask _whatIsGround;
+    private float _radiusCircle = 0.8f;
 
-    private void OnCollisionStay2D(Collision2D collision)
+    public bool IsGrounded
     {
-        if (collision.gameObject.GetComponent<GroundPlatform>())
+        get
         {
-            IsGrounded = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<GroundPlatform>())
-        {
-            IsGrounded = false;
+            return Physics2D.OverlapCircle(transform.position, _radiusCircle, _whatIsGround);
         }
     }
 }
