@@ -2,12 +2,12 @@
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(GroundChecker))]
-
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _jumpForce = 25f;
     [SerializeField] private float _maxJumpTime = 0.35f;
+
     private float _currentJumpTime;
     private GroundChecker _groundChecker;
     private Rigidbody2D _rigidbody2D;
@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _groundChecker.IsGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && _groundChecker.IsOnGround())
         {
             _currentJumpTime = _maxJumpTime;
         }
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _jumpForce);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && !_groundChecker.IsGrounded)
+        if (Input.GetKeyUp(KeyCode.Space) && !_groundChecker.IsOnGround())
         {
             _currentJumpTime = -1;
         }

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class CoinsHolder : MonoBehaviour
 {
-    [SerializeField] private TMP_Text CountOfCoinsText;
+    [SerializeField] private TMP_Text _countOfCoinsText;
+
     private int _countOfCoins;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -11,7 +12,7 @@ public class CoinsHolder : MonoBehaviour
         if (collision.gameObject.GetComponent<Coin>())
         {
             _countOfCoins++;
-            CountOfCoinsText.text = _countOfCoins.ToString();
+            _countOfCoinsText.text = _countOfCoins.ToString();
 
             Destroy(collision.gameObject);
         }

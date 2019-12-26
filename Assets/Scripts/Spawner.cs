@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] protected float _minDelay;
     [SerializeField] protected float _maxDelay;
     [SerializeField] protected float _firstSpawnTime;
+
     protected float _nextSpawnTime;
     protected Vector3 _nextSpawnPosition;
 

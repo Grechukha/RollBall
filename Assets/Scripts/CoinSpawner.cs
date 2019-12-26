@@ -3,6 +3,7 @@
 public class CoinSpawner : Spawner
 {
     [SerializeField] private int _targetCount;
+
     private Vector3 _previousCoinPosition;
     private int _currentCoinNumber = 1;
     
