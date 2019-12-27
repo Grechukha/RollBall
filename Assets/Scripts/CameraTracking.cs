@@ -7,7 +7,6 @@ public class CameraTracking : MonoBehaviour
     [SerializeField] private float _offsetRelativeCenterCameraX = -0.66f;
 
     private Camera _camera;
-    private Vector3 _offset;
     
     private void Start()
     {
@@ -16,12 +15,11 @@ public class CameraTracking : MonoBehaviour
 
     private void Update()
     {
-        СalculateOffset();
-        transform.position = new Vector3(_player.transform.position.x, transform.position.y, transform.position.z) + _offset;
+        transform.position = new Vector3(_player.transform.position.x, transform.position.y, transform.position.z) + GetOffset();
     }
 
-    private void СalculateOffset()
+    private Vector3 GetOffset()
     {
-        _offset = new Vector3(_camera.orthographicSize * _camera.aspect * -_offsetRelativeCenterCameraX, 0, 0);
+       return new Vector3(_camera.orthographicSize * _camera.aspect * -_offsetRelativeCenterCameraX, 0, 0);
     }
 }
