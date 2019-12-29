@@ -1,13 +1,28 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class PlatformShifter : MonoBehaviour
 {
-    [SerializeField] private GroundPlatform[] _groundPlatforms;
     [SerializeField] private PlayerMovement _player;
 
-   private void Update()
+    private Queue<GroundPlatform> _gndPlatforms = new Queue<GroundPlatform>();
+    private float _nextShiftPositionX;
+
+    private void Start()
     {
-        if (_player.transform.position.x > _groundPlatforms[1].transform.position.x)
+        var platforms = GetComponentsInChildren<GroundPlatform>();
+        platforms.OrderBy(p => p.transform.position.x);
+
+        foreach (var platform in platforms)
+        {
+            _gndPlatforms.Enqueue(platform);
+        }
+    }
+
+    private void Update()
+    {
+        if (_player.transform.position.x > _nextShiftPositionX)
         {
             ShiftPlatform();
         }
@@ -15,27 +30,13 @@ public class PlatformShifter : MonoBehaviour
 
     private void ShiftPlatform()
     {
-        ShiftPlatformsArray();
-        ShiftPlatformPosition();
-    }
+        var firstPlatform = _gndPlatforms.Dequeue();
 
-    private void ShiftPlatformsArray()
-    {
-        GroundPlatform tempGroundPlatform = _groundPlatforms[0];
+        Vector3 newPosition = _gndPlatforms.ToArray()[_gndPlatforms.Count - 1].EndPoint.position - firstPlatform.StartPoint.localPosition;
+        firstPlatform.transform.position = newPosition;
 
-        for (int i = 0; i < _groundPlatforms.Length - 1; i++)
-        {
-            _groundPlatforms[i] = _groundPlatforms[i + 1];
-        }
+        _gndPlatforms.Enqueue(firstPlatform);
 
-        _groundPlatforms[_groundPlatforms.Length - 1] = tempGroundPlatform;
-    }
-
-    private void ShiftPlatformPosition()
-    {
-        Vector3 newPosition = _groundPlatforms[_groundPlatforms.Length - 2].EndPoint.position
-           - _groundPlatforms[_groundPlatforms.Length - 1].StartPoint.localPosition;
-
-        _groundPlatforms[_groundPlatforms.Length - 1].transform.position = newPosition;
+        _nextShiftPositionX = _gndPlatforms.ToArray()[1].transform.position.x;
     }
 }
