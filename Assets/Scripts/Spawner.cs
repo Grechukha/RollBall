@@ -2,10 +2,12 @@
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] protected GameObject _gameObject;
+    [SerializeField] protected Transform _player;
+    [SerializeField] protected GameObject _spawnObject;
     [SerializeField] protected float _minDelay;
     [SerializeField] protected float _maxDelay;
     [SerializeField] protected float _firstSpawnTime;
+    [SerializeField] protected float _positionXOffset = 0;
 
     protected float _nextSpawnTime;
     protected Vector3 _nextSpawnPosition;
@@ -19,9 +21,9 @@ public class Spawner : MonoBehaviour
     {
         if (Time.time > _nextSpawnTime)
         {
-            _nextSpawnPosition = GetNextPosition();
+            _nextSpawnPosition = GetNextPosition() + new Vector3(_player.position.x + _positionXOffset, 0, 0);
 
-            Instantiate(_gameObject, _nextSpawnPosition, Quaternion.identity);
+            Instantiate(_spawnObject, _nextSpawnPosition, Quaternion.identity);
 
             _nextSpawnTime = GetNextSpawnTime();
         }
