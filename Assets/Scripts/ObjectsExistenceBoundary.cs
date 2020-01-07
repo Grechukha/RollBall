@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Boundary : MonoBehaviour
+public class ObjectsExistenceBoundary : MonoBehaviour
 {
     private void OnTriggerExit2D(Collider2D collision)
     {
